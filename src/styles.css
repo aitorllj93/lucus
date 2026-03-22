@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base-50: var(--color-stone-50);
+  --color-base-100: var(--color-stone-100);
+  --color-base-200: var(--color-stone-200);
+  --color-base-300: var(--color-stone-300);
+  --color-base-400: var(--color-stone-400);
+  --color-base-500: var(--color-stone-500);
+  --color-base-600: var(--color-stone-600);
+  --color-base-700: var(--color-stone-700);
+  --color-base-800: var(--color-stone-800);
+  --color-base-900: var(--color-stone-900);
+  --color-base-950: var(--color-stone-950);
+}
+
+.list-view {
+  @apply space-y-2;
+}
+
+.grid-view {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3;
+
+  .view-item {
+    @apply flex-col gap-2;
+  }
+
+  .view-item__main, .view-item__details {
+    @apply flex-col items-center gap-2;
+  }
+}
+
+.view-item {
+  @apply flex items-center justify-between gap-4 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-3 transition hover:border-black/20 dark:hover:border-white/20 hover:bg-black/10 dark:hover:bg-white/10;
+}
+
+.view-item__main {
+  @apply min-w-0 flex items-center gap-3;
+}
+
+.view-item__details {
+  @apply hidden justify-end gap-4 shrink-0 text-right text-sm text-base-800 dark:text-base-400 sm:flex;
+}
+
+.toolbar-button {
+  @apply cursor-pointer rounded-lg px-1.5 py-1 [&>svg]:size-5 text-base-800 dark:text-base-200 transition hover:bg-black/10 dark:hover:bg-white/10;
+
+  &.active {
+    @apply bg-black/10 dark:bg-white/10;
+  }
+}

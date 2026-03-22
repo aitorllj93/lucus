@@ -1,0 +1,43 @@
+services:
+  # ============================================
+  # Redis - Cache for CDN
+  # ============================================
+  redis:
+    image: redis:7-alpine
+    container_name: lucus-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # CDN - Media server with image/video processing
+  # ============================================
+  cdn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lucus-cdn
+    restart: unless-stopped
+    ports:
+      - "42070:42070"
+    environment:
+      - PORT=42070
+      - STORAGE_PATH=/data/storage
+      - REDIS_URL=redis://redis:6379
+      - CACHE_TTL=${CACHE_TTL:-86400}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - DIRECTORY_LISTING=${DIRECTORY_LISTING:-false}
+    volumes:
+      - ${STORAGE_PATH:-./storage}:/data/storage
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis_data:
+    driver: local
