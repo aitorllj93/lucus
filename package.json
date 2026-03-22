@@ -1,7 +1,7 @@
 {
 	"name": "lucus",
 	"description": "CDN for dev environment. A local server alternative to Cloudflare/Cloudinary image transformations",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
 		"start": "node dist/main.js",
